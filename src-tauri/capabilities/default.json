@@ -8,6 +8,16 @@
   "permissions": [
     "core:default",
     "shell:allow-open",
-    "sql:default"
+    "sql:default",
+    "sql:allow-execute",
+    "fs:default",
+    "fs:read-files",
+    "fs:allow-write-text-file",
+    "fs:allow-rename",
+    "fs:allow-remove",
+    {
+      "identifier": "fs:scope",
+      "allow": ["**/*"]
+    }
   ]
 }

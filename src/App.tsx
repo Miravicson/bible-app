@@ -1,16 +1,55 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import { invoke } from "@tauri-apps/api/core";
 import "./App.css";
 
+import { db } from "./db/database";
+import * as schema from "./db/schema";
+
 function App() {
   const [greetMsg, setGreetMsg] = useState("");
   const [name, setName] = useState("");
+  const [users, setUsers] = useState<{ id: number; name: string | null }[]>([]);
+
+  
+
+  async function addUser() {
+    await db.insert(schema.users).values({ name });
+    setName("");
+    loadUsers();
+  }
 
   async function greet() {
     // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
     setGreetMsg(await invoke("greet", { name }));
   }
+
+  const loadUsers = async () => {
+    db.query.users
+      .findMany()
+      .execute()
+      .then((results) => {
+        console.log("🚀 ~ FindMany response from Drizzle:", results);
+        setUsers(results);
+      });
+  };
+
+  const loadASingleUser = async () => {
+    db.query.users
+      .findFirst()
+      .execute()
+      .then((result) => {
+        console.log("🚀 ~ FindFirst response from Drizzle:", result);
+      });
+  };
+
+  useEffect(() => {
+    async function init() {
+      loadUsers();
+      loadASingleUser();
+    }
+    init();
+  }, []);
 
   return (
     <main className="container">
@@ -43,6 +82,28 @@ function App() {
         />
         <button type="submit">Greet</button>
       </form>
+      <br/>
+      <form
+        className="row"
+        onSubmit={(e) => {
+          e.preventDefault();
+          addUser();
+        }}
+      >
+        <input
+          id="greet-input"
+          onChange={(e) => setName(e.currentTarget.value)}
+          value={name}
+          placeholder="Enter a name..."
+        />
+        <button type="submit">Add name to the db</button>
+      </form>
+      <p>      List of users form the sqlite database:
+      <ul>
+        {users.map((user, index) => (
+          <li key={index}>{user.name}</li>
+        ))}
+      </ul></p>
       <p>{greetMsg}</p>
     </main>
   );
