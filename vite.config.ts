@@ -1,11 +1,20 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import { resolve } from "path";
 
-// @ts-expect-error process is a nodejs global
+
 const host = process.env.TAURI_DEV_HOST;
 
 // https://vitejs.dev/config/
 export default defineConfig(async () => ({
+  build: {
+    rollupOptions: {
+      input: {
+        main: resolve(__dirname, 'index.html',),
+        display: resolve(__dirname, '/extra-windows/display.html')
+      }
+    },
+  },
   esbuild: {
     supported: {
       'top-level-await': true

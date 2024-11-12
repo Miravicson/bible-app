@@ -10,3 +10,7 @@ This template should help get you started developing with Tauri, React and Types
 
 - [Drizzle](https://orm.drizzle.team)
 - [Tauri](https://v2.tauri.app)
+
+## Guides
+
+- [Multiwindow support for Tauri, Vite and React](https://stackoverflow.com/questions/77775315/how-to-create-mulitwindows-in-tauri-rust-react-typescript-html-css)

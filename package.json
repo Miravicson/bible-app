@@ -9,7 +9,9 @@
     "preview": "vite preview",
     "tauri": "tauri",
     "dev:ios": "pnpm tauri ios dev",
-    "migrate": "drizzle-kit generate"
+    "migrate": "drizzle-kit generate",
+    "tauri:dev": "pnpm tauri dev",
+    "tauri:build": "pnpm tauri build"
   },
   "dependencies": {
     "@tauri-apps/api": "^2",
@@ -22,6 +24,7 @@
   },
   "devDependencies": {
     "@tauri-apps/cli": "^2",
+    "@types/node": "^22.9.0",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@vitejs/plugin-react": "^4.2.1",
