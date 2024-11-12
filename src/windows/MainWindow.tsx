@@ -1,7 +1,5 @@
 import { useEffect } from "react";
-
 import { invoke } from "@tauri-apps/api/core";
-import "./MainWindow.css";
 import { db } from "../db/database";
 // import * as schema from "../db/schema";
 
@@ -47,9 +45,9 @@ function MainWindow() {
   }, []);
 
   return (
-    <main className="container">
+    <main className="flex flex-col items-center justify-center h-[100vh]">
       <h1>Welcome to Scripture Spotter</h1>
-      <button className="button" onClick={openDisplay}>Open Display</button>
+      <button className="bg-green-400 text-white rounded-md px-3 py-1" onClick={openDisplay}>Open Display</button>
     </main>
   );
 }

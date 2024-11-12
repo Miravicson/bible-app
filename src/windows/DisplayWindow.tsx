@@ -1,5 +1,3 @@
-import "./MainWindow.css";
-
 function DisplayWindow() {
   return (
     <main className="container">

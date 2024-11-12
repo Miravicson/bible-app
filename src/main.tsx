@@ -1,8 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { migrate } from "./db/migrate";
+import './index.css';
 // import { appDataDir, appLocalDataDir } from "@tauri-apps/api/path";
-import MainWindow from "./window/MainWindow";
+import MainWindow from "./windows/MainWindow";
 
 // (async function () {
 //   try {

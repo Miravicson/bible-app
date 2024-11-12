@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import DisplayWindow from "./window/DisplayWindow";
+import DisplayWindow from "./windows/DisplayWindow";
+import './index.css';
 
 
 ReactDOM.createRoot(document.getElementById("display-root") as HTMLElement).render(
