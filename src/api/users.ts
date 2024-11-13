@@ -1,20 +1,19 @@
 import { db } from "@/db/database";
-import * as schema from "../db/schema";
+import {users as usersSchema} from "@/db/schema";
 
 
   export async function addUser(name: string) {
-    await db.insert(schema.users).values({ name  });
+    await db.insert(usersSchema).values({ name  });
     loadUsers();
   }
 
 
   export async function loadUsers() {
-    db.query.users
+    const result = await db.query.users
       .findMany()
-      .execute()
-      .then((results) => {
-        console.log("🚀 ~ FindMany response from Drizzle:", results);
-      });
+      .execute();
+      console.log("🚀 ~ FindMany response from Drizzle:", result);
+      return result;
   };
 
   export async function loadASingleUser() {

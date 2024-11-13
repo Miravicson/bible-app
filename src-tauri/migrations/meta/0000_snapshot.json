@@ -1,9 +1,129 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "1d1c9e85-519e-4cba-8926-b734e5da70e4",
+  "id": "4e60b4e4-165f-4bd8-aee9-bda7c1b97de4",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
+    "default-bible-books": {
+      "name": "default-bible-books",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "bookNumber": {
+          "name": "bookNumber",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "book": {
+          "name": "book",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "default-bible-books_id_unique": {
+          "name": "default-bible-books_id_unique",
+          "columns": [
+            "id"
+          ],
+          "isUnique": true
+        },
+        "default-bible-books_bookNumber_unique": {
+          "name": "default-bible-books_bookNumber_unique",
+          "columns": [
+            "bookNumber"
+          ],
+          "isUnique": true
+        },
+        "default-bible-books_book_unique": {
+          "name": "default-bible-books_book_unique",
+          "columns": [
+            "book"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "default-bible-verses": {
+      "name": "default-bible-verses",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "bookId": {
+          "name": "bookId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "chapter": {
+          "name": "chapter",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "verseNumber": {
+          "name": "verseNumber",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "verseText": {
+          "name": "verseText",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "default-bible-verses_id_unique": {
+          "name": "default-bible-verses_id_unique",
+          "columns": [
+            "id"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {
+        "default-bible-verses_bookId_default-bible-books_bookNumber_fk": {
+          "name": "default-bible-verses_bookId_default-bible-books_bookNumber_fk",
+          "tableFrom": "default-bible-verses",
+          "tableTo": "default-bible-books",
+          "columnsFrom": [
+            "bookId"
+          ],
+          "columnsTo": [
+            "bookNumber"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
     "users": {
       "name": "users",
       "columns": {

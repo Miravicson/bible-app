@@ -2,24 +2,24 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { migrate } from "./db/migrate";
 import './index.css';
-// import { appDataDir, appLocalDataDir } from "@tauri-apps/api/path";
+import { appDataDir } from "@tauri-apps/api/path";
 import MainWindow from "./windows/MainWindow";
+import '@/db/seed/bible-books';
+import { seedBibleBooks } from "@/db/seed/bible-books";
 
-// (async function () {
-//   try {
-//     await migrate()
+(async function () {
+  try {
+    await migrate()
+    await seedBibleBooks()
 
-//     const appLocalDirPath = await appLocalDataDir();
-//     const appDataDirPath = await appDataDir();
-//     console.log(`Local Directory path`, appLocalDirPath);
-//     console.log(`App Data Directory path`, appDataDirPath);
-//   } catch (error) {
-//     console.log(error)
-//     console.error(error)
-//   }
-// })();
+    const appDataDirPath = await appDataDir();
+    console.log(`App Data Directory path`, appDataDirPath);
+  } catch (error) {
+    console.log(error)
+  }
+})();
 
-await migrate()
+
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>

@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "tauri": "tauri",
     "dev:ios": "pnpm tauri ios dev",
-    "migrate": "drizzle-kit generate",
+    "migration:generate": "drizzle-kit generate",
+    "migration:execute": "drizzle-kit migrate",
     "tauri:dev": "pnpm tauri dev",
     "tauri:build": "pnpm tauri build"
   },
