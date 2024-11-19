@@ -1,6 +1,6 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import { resolve } from "path";
+import { resolve, join } from "path";
 
 
 const host = process.env.TAURI_DEV_HOST;
@@ -11,7 +11,7 @@ export default defineConfig(async () => ({
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html',),
-        display: resolve(__dirname, '/extra-windows/display.html')
+        display: resolve(__dirname, join('extra-windows', 'display.html'))
       }
     },
   },
