@@ -1,3 +1,4 @@
+const colors = require('tailwindcss/colors');
 /** @type {import('tailwindcss').Config} */
 export default {
     darkMode: ["class"],
@@ -53,7 +54,16 @@ export default {
   				'3': 'hsl(var(--chart-3))',
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
-  			}
+  			},
+				sky: colors.sky,
+        cyan: colors.cyan,
+				whiteTrans3: "#ffffff30",
+        whiteTrans4: "#ffffff40",
+        whiteTrans9: "#ffffff90",
+        bgDark:"#262626",
+        bgDark2:"#484848",
+        success: "#5ddf5d",
+        error:"#ff4c4c"
   		}
   	}
   },
