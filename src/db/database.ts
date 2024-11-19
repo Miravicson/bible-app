@@ -1,14 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { drizzle } from 'drizzle-orm/sqlite-proxy';
-// import Database from "tauri-plugin-sql-api";
 import Database from '@tauri-apps/plugin-sql';
 import * as schema from './schema';
-
-/**
- * Represents the result of a SELECT query.
- */
-export type SelectQueryResult = {
-  [key: string]: any;
-};
 
 /**
  * Loads the sqlite database via the Tauri Proxy.
