@@ -19,8 +19,6 @@ import { seedBibleBooks } from "@/db/seed/bible-books";
   }
 })();
 
-
-
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <MainWindow />

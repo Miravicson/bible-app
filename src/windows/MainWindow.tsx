@@ -1,8 +1,8 @@
 import { invoke } from "@tauri-apps/api/core";
 import { Button } from "@/components/ui/button"
 import { useEffect, useState } from "react";
-import { loadUsers } from "@/api/users";
-import { DefaultBibleBook, User } from "@/api/types";
+// import { loadUsers } from "@/api/users";
+import { DefaultBibleBook } from "@/api/types";
 import { getBibleBooks } from "@/api/bible";
 
 
@@ -37,13 +37,13 @@ function MainWindow() {
       <Button variant="default" onClick={openDisplay}>Open Display</Button>
       <Button variant="default" onClick={sendMessageToDisplay}>Send Message To Display</Button>
       <p>Users</p>
-<div className="flex flex-wrap space-x-2">
+      <div className="flex flex-wrap space-x-2">
         {
           books.map((book) => (
             <li key={book.bookNumber} className="inline-block">{book.book}</li>
           ))
         }
-</div>
+      </div>
     </main>
   );
 }
