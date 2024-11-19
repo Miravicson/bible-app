@@ -14,3 +14,4 @@ This template should help get you started developing with Tauri, React and Types
 ## Guides
 
 - [Multiwindow support for Tauri, Vite and React](https://stackoverflow.com/questions/77775315/how-to-create-mulitwindows-in-tauri-rust-react-typescript-html-css)
+# bible-app
