@@ -42,7 +42,6 @@ function Hello() {
           </div>
         </div>
       )}
-      {locationPath === '/home' && <Screen />}
     </main>
   );
 }
