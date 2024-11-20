@@ -1,4 +1,4 @@
-import { defaultBibleBooks, users } from "@/db/schema";
+import { defaultBibleBooks, users } from '@/db/schema';
 
 export type User = typeof users.$inferSelect;
 

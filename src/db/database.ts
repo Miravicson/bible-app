@@ -1,19 +1,12 @@
-import { drizzle } from "drizzle-orm/sqlite-proxy";
-// import Database from "tauri-plugin-sql-api";
-import Database from "@tauri-apps/plugin-sql";
-import * as schema from "./schema";
-
-/**
- * Represents the result of a SELECT query.
- */
-export type SelectQueryResult = {
-  [key: string]: any;
-};
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { drizzle } from 'drizzle-orm/sqlite-proxy';
+import Database from '@tauri-apps/plugin-sql';
+import * as schema from './schema';
 
 /**
  * Loads the sqlite database via the Tauri Proxy.
  */
-export const sqlite = await Database.load("sqlite:sqlite-1.db");
+export const sqlite = await Database.load('sqlite:sqlite-1.db');
 
 /**
  * The drizzle database instance.
@@ -26,13 +19,13 @@ export const db = drizzle<typeof schema>(
     // If the query is a SELECT, use the select method
     if (isSelectQuery(sql)) {
       rows = await sqlite.select(sql, params).catch((e) => {
-        console.error("SQL Error:", e);
+        console.error('SQL Error:', e);
         return [];
       });
     } else {
       // Otherwise, use the execute method
       rows = await sqlite.execute(sql, params).catch((e) => {
-        console.error("SQL Error:", e);
+        console.error('SQL Error:', e);
         return [];
       });
       return { rows: [] };
@@ -43,12 +36,12 @@ export const db = drizzle<typeof schema>(
     });
 
     // If the method is "all", return all rows
-    results = method === "all" ? rows : rows[0];
+    results = method === 'all' ? rows : rows[0];
 
     return { rows: results };
   },
   // Pass the schema to the drizzle instance
-  { schema: schema, logger: true }
+  { schema: schema, logger: true },
 );
 
 /**

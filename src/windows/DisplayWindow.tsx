@@ -10,20 +10,16 @@ function DisplayWindow(){
   useEffect(() => {
     const unlisten = listen<Scripture>('show_scripture', (event) => {
       console.log(`Message received: ${JSON.stringify(event)}`);
-      const scripture = event.payload
+      const scripture = event.payload;
       setScripture(scripture);
-    })
+    });
 
-    return  () => {
-      unlisten.then(f => f())
+    return () => {
+      unlisten.then((f) => f());
     };
-  }, [])
+  }, []);
 
-
-  return (
-    <Screen scripture={scripture} />
-  )
-  
+  return <Screen scripture={scripture} />;
 }
 
 export default DisplayWindow;

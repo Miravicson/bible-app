@@ -1,6 +1,6 @@
 import { readDir, readTextFile } from '@tauri-apps/plugin-fs';
-import { resourceDir } from "@tauri-apps/api/path";
-import { sqlite } from "./database";
+import { resourceDir } from '@tauri-apps/api/path';
+import { sqlite } from './database';
 
 export type ProxyMigrator = (migrationQueries: string[]) => Promise<void>;
 
@@ -13,12 +13,12 @@ export type ProxyMigrator = (migrationQueries: string[]) => Promise<void>;
 export async function migrate() {
   const resourcePath = await resourceDir();
   const files = await readDir(`${resourcePath}/migrations`);
-  let migrations = files.filter((file) => file.name?.endsWith(".sql"));
+  let migrations = files.filter((file) => file.name?.endsWith('.sql'));
 
   // sort migrations by the first 4 characters of the file name
   migrations = migrations.sort((a, b) => {
-    const aHash = a.name?.replace(".sql", "").slice(0, 4);
-    const bHash = b.name?.replace(".sql", "").slice(0, 4);
+    const aHash = a.name?.replace('.sql', '').slice(0, 4);
+    const bHash = b.name?.replace('.sql', '').slice(0, 4);
 
     if (aHash && bHash) {
       return aHash.localeCompare(bHash);
@@ -38,10 +38,10 @@ export async function migrate() {
   await sqlite.execute(migrationTableCreate, []);
 
   for (const migration of migrations) {
-    const hash = migration.name?.replace(".sql", "");
+    const hash = migration.name?.replace('.sql', '');
 
     const dbMigrations = (await sqlite.select(
-      /*sql*/ `SELECT id, hash, created_at FROM "__drizzle_migrations" ORDER BY created_at DESC`
+      /*sql*/ `SELECT id, hash, created_at FROM "__drizzle_migrations" ORDER BY created_at DESC`,
     )) as unknown as { id: number; hash: string; created_at: number }[];
 
     const hasBeenRun = (hash: string) =>
@@ -50,17 +50,19 @@ export async function migrate() {
       });
 
     if (hash && hasBeenRun(hash) === undefined) {
-      const sql = await readTextFile(`${resourcePath}/migrations/${migration.name}`);
+      const sql = await readTextFile(
+        `${resourcePath}/migrations/${migration.name}`,
+      );
 
       sqlite.execute(sql, []);
       sqlite.execute(
         /*sql*/ `INSERT INTO "__drizzle_migrations" (hash, created_at) VALUES ($1, $2)`,
-        [hash, Date.now()]
+        [hash, Date.now()],
       );
     }
   }
 
-  console.info("Migrations complete");
+  console.info('Migrations complete');
 
   return Promise.resolve();
 }
