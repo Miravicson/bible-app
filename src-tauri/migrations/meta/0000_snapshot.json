@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "4e60b4e4-165f-4bd8-aee9-bda7c1b97de4",
+  "id": "4e2d3a28-7c9a-41bc-a0ae-034dee595b21",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "default-bible-books": {
@@ -94,6 +94,20 @@
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
+        },
+        "verseId": {
+          "name": "verseId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "verseGlobalNumber": {
+          "name": "verseGlobalNumber",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
         }
       },
       "indexes": {
@@ -101,6 +115,20 @@
           "name": "default-bible-verses_id_unique",
           "columns": [
             "id"
+          ],
+          "isUnique": true
+        },
+        "default-bible-verses_verseId_unique": {
+          "name": "default-bible-verses_verseId_unique",
+          "columns": [
+            "verseId"
+          ],
+          "isUnique": true
+        },
+        "default-bible-verses_verseGlobalNumber_unique": {
+          "name": "default-bible-verses_verseGlobalNumber_unique",
+          "columns": [
+            "verseGlobalNumber"
           ],
           "isUnique": true
         }
@@ -120,92 +148,6 @@
           "onUpdate": "no action"
         }
       },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "checkConstraints": {}
-    },
-    "users": {
-      "name": "users",
-      "columns": {
-        "age": {
-          "name": "age",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false,
-          "default": 18
-        },
-        "city": {
-          "name": "city",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false,
-          "default": "'NULL'"
-        },
-        "created_at": {
-          "name": "created_at",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false,
-          "default": "'CURRENT_TIMESTAMP'"
-        },
-        "deleted_at": {
-          "name": "deleted_at",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false,
-          "default": "'NULL'"
-        },
-        "email": {
-          "name": "email",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "id": {
-          "name": "id",
-          "type": "integer",
-          "primaryKey": true,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "name": {
-          "name": "name",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "updated_at": {
-          "name": "updated_at",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false,
-          "default": "'CURRENT_TIMESTAMP'"
-        }
-      },
-      "indexes": {
-        "users_email_unique": {
-          "name": "users_email_unique",
-          "columns": [
-            "email"
-          ],
-          "isUnique": true
-        },
-        "users_id_unique": {
-          "name": "users_id_unique",
-          "columns": [
-            "id"
-          ],
-          "isUnique": true
-        }
-      },
-      "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
       "checkConstraints": {}

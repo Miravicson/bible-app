@@ -11,7 +11,6 @@ import { Note, NotificationCircle, Send2 } from 'iconsax-react';
 import { invoke } from '@tauri-apps/api/core';
 
 function Hello() {
-  console.log(window.location);
   const locationPath = window.location.pathname;
 
   return (

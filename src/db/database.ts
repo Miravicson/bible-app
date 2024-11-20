@@ -6,7 +6,7 @@ import * as schema from './schema';
 /**
  * Loads the sqlite database via the Tauri Proxy.
  */
-export const sqlite = await Database.load('sqlite:sqlite-1.db');
+export const sqlite = await Database.load('sqlite:database.db');
 
 /**
  * The drizzle database instance.
