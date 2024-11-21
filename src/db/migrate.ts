@@ -1,6 +1,7 @@
-import { readDir, readTextFile } from '@tauri-apps/plugin-fs';
+import { DirEntry, readDir, readTextFile } from '@tauri-apps/plugin-fs';
 import { resourceDir } from '@tauri-apps/api/path';
 import { sqlite } from './database';
+import { ExecuteMigrationsOptions } from '@/lib/types';
 
 export type ProxyMigrator = (migrationQueries: string[]) => Promise<void>;
 
@@ -13,10 +14,16 @@ export type ProxyMigrator = (migrationQueries: string[]) => Promise<void>;
 export async function migrate() {
   const resourcePath = await resourceDir();
   const files = await readDir(`${resourcePath}/migrations`);
-  let migrations = files.filter((file) => file.name?.endsWith('.sql'));
+  const migrations = files.filter((file) => file.name?.endsWith('.sql'));
+  sortMigrationsByName(migrations);
 
-  // sort migrations by the first 4 characters of the file name
-  migrations = migrations.sort((a, b) => {
+  await createMigrationsTable();
+  await executeMigrations({ migrations, migrationResourcePath: resourcePath });
+  return Promise.resolve();
+}
+
+function sortMigrationsByName(migrations: DirEntry[]) {
+  migrations.sort((a, b) => {
     const aHash = a.name?.replace('.sql', '').slice(0, 4);
     const bHash = b.name?.replace('.sql', '').slice(0, 4);
 
@@ -26,18 +33,21 @@ export async function migrate() {
 
     return 0;
   });
+}
 
+async function createMigrationsTable() {
   const migrationTableCreate = /*sql*/ `
-		CREATE TABLE IF NOT EXISTS "__drizzle_migrations" (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            hash text NOT NULL UNIQUE,
-			created_at numeric
-		)
-	`;
-
+  CREATE TABLE IF NOT EXISTS "__drizzle_migrations" (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          hash text NOT NULL UNIQUE,
+    created_at numeric
+  )
+`;
   await sqlite.execute(migrationTableCreate, []);
+}
 
-  for (const migration of migrations) {
+async function executeMigrations(options: ExecuteMigrationsOptions) {
+  for (const migration of options.migrations) {
     const hash = migration.name?.replace('.sql', '');
 
     const dbMigrations = (await sqlite.select(
@@ -51,7 +61,7 @@ export async function migrate() {
 
     if (hash && hasBeenRun(hash) === undefined) {
       const sql = await readTextFile(
-        `${resourcePath}/migrations/${migration.name}`,
+        `${options.migrationResourcePath}/migrations/${migration.name}`,
       );
 
       sqlite.execute(sql, []);
@@ -61,8 +71,4 @@ export async function migrate() {
       );
     }
   }
-
-  console.info('Migrations complete');
-
-  return Promise.resolve();
 }
