@@ -18,14 +18,17 @@ fn greet(name: &str) -> String {
     format!("Hello, {}! You've been greeted from Rust!", name)
 }
 
+fn create_display_window(app: tauri::AppHandle) -> tauri::WebviewWindow {
+    let file_path = "../../extra-windows/display.html";
+    tauri::WebviewWindowBuilder::new(&app, "display", tauri::WebviewUrl::App(file_path.into()))
+        .title("Display")
+        .build()
+        .unwrap()
+}
+
 #[tauri::command]
 async fn open_display_window(app: tauri::AppHandle) {
-    let file_path = "../../extra-windows/display.html";
-    let _display_window =
-        tauri::WebviewWindowBuilder::new(&app, "display", tauri::WebviewUrl::App(file_path.into()))
-            .title("Display")
-            .build()
-            .unwrap();
+    app.get_webview_window("display").unwrap_or_else(|| create_display_window(app));
 }
 
 #[tauri::command]
