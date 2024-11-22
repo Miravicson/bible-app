@@ -28,7 +28,8 @@ fn create_display_window(app: tauri::AppHandle) -> tauri::WebviewWindow {
 
 #[tauri::command]
 async fn open_display_window(app: tauri::AppHandle) {
-    app.get_webview_window("display").unwrap_or_else(|| create_display_window(app));
+    app.get_webview_window("display")
+        .unwrap_or_else(|| create_display_window(app));
 }
 
 #[tauri::command]

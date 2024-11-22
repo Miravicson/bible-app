@@ -6,15 +6,15 @@ import MainWindow from './windows/MainWindow';
 import '@/db/seed/bible-books';
 import '@/lib/utils';
 import { configureDatabase } from './db';
-// import { appDataDir } from '@tauri-apps/api/path';
-
-// const appDataDirPath = await appDataDir();
-// console.log(`App directory: `, appDataDirPath);
+import { Debug } from './components/debug';
 
 await configureDatabase();
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <MainWindow />
+    <>
+      <MainWindow />
+      <Debug />
+    </>
   </React.StrictMode>,
 );
