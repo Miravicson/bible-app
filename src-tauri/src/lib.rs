@@ -1,11 +1,6 @@
 use tauri::{Emitter, EventTarget, Manager};
 
-// the payload type must implement `Serialize` and `Clone`.
-#[derive(Clone, serde::Serialize)]
-struct Payload {
-    message: String,
-}
-
+// the Scripture type must implement `Serialize` and `Clone`.
 #[derive(Clone, serde::Serialize)]
 struct Scripture {
     verse: String,
@@ -40,18 +35,7 @@ async fn open_display_window(app: tauri::AppHandle) {
     create_display_window_if_nonexistent(&app);
 }
 
-#[tauri::command]
-async fn send_message_to_display(app: tauri::AppHandle, message: String) {
-    let display_window = create_display_window_if_nonexistent(&app);
 
-    display_window
-        .emit_to(
-            EventTarget::webview_window("display"),
-            "message",
-            Payload { message },
-        )
-        .unwrap();
-}
 
 #[tauri::command]
 async fn show_scripture(app: tauri::AppHandle, verse: String, message: String) {
@@ -68,14 +52,15 @@ async fn show_scripture(app: tauri::AppHandle, verse: String, message: String) {
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
+        .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_fs::init())
         .plugin(tauri_plugin_sql::Builder::new().build())
         .plugin(tauri_plugin_shell::init())
         .invoke_handler(tauri::generate_handler![
             greet,
             open_display_window,
-            send_message_to_display,
-            show_scripture
+            show_scripture,
+ 
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

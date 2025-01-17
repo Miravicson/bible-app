@@ -12,9 +12,18 @@
   "app": {
     "windows": [
       {
-        "title": "scripture-spotter",
+        "title": "Scripture Spotter (Main)",
         "width": 800,
-        "height": 600
+        "height": 600,
+        "label": "main",
+        "alwaysOnTop": true
+      },
+      {
+        "title": "Scripture Spotter (Display)",
+        "width": 800,
+        "height": 600,
+        "label": "display",
+        "url": "../../extra-windows/display.html"
       }
     ],
     "security": {
@@ -34,5 +43,6 @@
     "resources": [
       "migrations/*"
     ]
-  }
+  },
+  "plugins": {}
 }
