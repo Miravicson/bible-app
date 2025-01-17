@@ -49,7 +49,6 @@ const History = () => {
   const { history, setHistory } = useContext(GlobalContext);
 
   const handleHistoryVerse = async (verse: string, message: string) => {
-    console.log('Clicking the verse');
     await invoke('show_scripture', { verse, message });
   };
 

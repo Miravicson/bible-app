@@ -12,6 +12,23 @@ struct Scripture {
     message: String,
 }
 
+fn create_display_window(app: &tauri::AppHandle) -> tauri::WebviewWindow {
+    let file_path = "../../extra-windows/display.html";
+    let display_window =
+        tauri::WebviewWindowBuilder::new(app, "display", tauri::WebviewUrl::App(file_path.into()))
+            .title("Display")
+            .build()
+            .unwrap();
+    display_window
+}
+
+fn create_display_window_if_nonexistent(app: &tauri::AppHandle) -> tauri::WebviewWindow {
+    match app.get_webview_window("display") {
+        Some(display_window) => display_window,
+        None => create_display_window(app),
+    }
+}
+
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
 #[tauri::command]
 fn greet(name: &str) -> String {
@@ -20,17 +37,13 @@ fn greet(name: &str) -> String {
 
 #[tauri::command]
 async fn open_display_window(app: tauri::AppHandle) {
-    let file_path = "../../extra-windows/display.html";
-    let _display_window =
-        tauri::WebviewWindowBuilder::new(&app, "display", tauri::WebviewUrl::App(file_path.into()))
-            .title("Display")
-            .build()
-            .unwrap();
+    create_display_window_if_nonexistent(&app);
 }
 
 #[tauri::command]
 async fn send_message_to_display(app: tauri::AppHandle, message: String) {
-    let display_window = app.get_webview_window("display").unwrap();
+    let display_window = create_display_window_if_nonexistent(&app);
+
     display_window
         .emit_to(
             EventTarget::webview_window("display"),
@@ -42,8 +55,7 @@ async fn send_message_to_display(app: tauri::AppHandle, message: String) {
 
 #[tauri::command]
 async fn show_scripture(app: tauri::AppHandle, verse: String, message: String) {
-    println!("Here is the message and scripture {verse} {message}");
-    let display_window = app.get_webview_window("display").unwrap();
+    let display_window = create_display_window_if_nonexistent(&app);
     display_window
         .emit_to(
             EventTarget::webview_window("display"),
