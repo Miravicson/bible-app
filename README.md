@@ -1,6 +1,4 @@
-# Tauri + React + Typescript
-
-This template should help get you started developing with Tauri, React and Typescript in Vite.
+# Bible App
 
 ## Recommended IDE Setup
 
@@ -14,4 +12,10 @@ This template should help get you started developing with Tauri, React and Types
 ## Guides
 
 - [Multiwindow support for Tauri, Vite and React](https://stackoverflow.com/questions/77775315/how-to-create-mulitwindows-in-tauri-rust-react-typescript-html-css)
-# bible-app
+
+## Setting up
+
+1. Install Rust, and setup Cargo,
+2. Install Node.js and Pnpm,
+3. Run `pnpm install` to install the node modules
+4. Run `pnpm tauri:dev` to start the project
