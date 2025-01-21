@@ -7,6 +7,7 @@ export function History() {
   const { history, setHistory } = useContext(GlobalContext);
 
   const handleHistoryVerse = async (verse: string, message: string) => {
+    await invoke('open_display_window');
     await invoke('show_scripture', { verse, message });
   };
 

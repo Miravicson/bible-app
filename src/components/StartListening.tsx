@@ -1,6 +1,7 @@
 import { GlobalContext } from '@/context/context';
 import { useContext, useState } from 'react';
 import { NotificationCircle, Send2 } from 'iconsax-react';
+import { invoke } from '@tauri-apps/api/core';
 
 export function StartListening() {
   const { verse, setVerse, setToast, history, setHistory } =
@@ -8,6 +9,10 @@ export function StartListening() {
 
   const [isListening] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+
+  async function showDisplay() {
+    await invoke('open_display_window');
+  }
 
   const fetchBibleVerses = async (_verseVal: string) => {
     setLoading(true);
@@ -79,6 +84,15 @@ export function StartListening() {
               Start Listening
             </button>
           )}
+        </div>
+        <div className="mt-3 flex items-center gap-2 ">
+          <button
+            className="round-btn bg-grad text-sm"
+            onClick={showDisplay}
+            disabled={isListening}
+          >
+            Show Display
+          </button>
         </div>
       </div>
 
