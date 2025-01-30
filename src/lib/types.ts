@@ -24,3 +24,17 @@ export type ExecuteMigrationsOptions = {
   migrations: DirEntry[];
   migrationResourcePath: string;
 };
+
+export const MainInputMode = {
+  IntelligenceMode: 'IntelligenceMode',
+  ManualMode: 'ManualMode',
+} as const;
+
+export type BibleBookShortform = {
+  name: BibleBooks;
+  abbreviations: string[];
+};
+
+export type ShortformMap = Record<string, BibleBooks>;
+
+export type MainInputMode = keyof typeof MainInputMode;
