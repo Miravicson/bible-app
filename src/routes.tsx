@@ -3,9 +3,9 @@ import {
   Routes as LibRoutes,
   Route,
 } from 'react-router-dom';
-import { Welcome } from './pages/welcome';
-import { Home } from './pages/home';
-import { LearnMore } from './pages/learn-more';
+import { Welcome } from './screens/Welcome';
+import { Home } from './screens/Home';
+import { LearnMore } from './screens/LearnMore';
 
 export function Routes() {
   return (

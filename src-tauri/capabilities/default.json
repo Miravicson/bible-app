@@ -16,9 +16,14 @@
     "fs:allow-write-text-file",
     "fs:allow-rename",
     "fs:allow-remove",
+    "core:window:allow-close",
+    "core:window:allow-destroy",
     {
       "identifier": "fs:scope",
-      "allow": ["**/*"]
-    }
+      "allow": [
+        "**/*"
+      ]
+    },
+    "dialog:default"
   ]
 }
